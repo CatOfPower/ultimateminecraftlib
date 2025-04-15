@@ -117,6 +117,8 @@ def translate_from_curseforge(project: dict) -> dict:
                 modloader = "quilt"
             elif modloader == 6:
                 modloader = "neoforge"
+            elif modloader == 3:
+                modloader = "forge"
 
             all_modloaders.append(modloader)
     
