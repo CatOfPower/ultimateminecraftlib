@@ -74,29 +74,38 @@ available = is_modloader_available(
 
 ## API Reference
 
-### `search(query, version=None, modloader=None, project_type=None, categories=None)`
+### search
+```py
+search(query, version=None, modloader=None, project_type=None, categories=None)
+```
 Searches for mods across both Modrinth and CurseForge platforms.
 
-### `get_download(id=None, slug=None, version=None, modloader=None, origin=None)`
+### get_download
+```py
+get_download(id=None, slug=None, version=None, modloader=None, origin=None)
+```
 Gets the download URL for a specific mod version.
 
-### `download_mod(id=None, slug=None, version=None, modloader=None, origin=None)`
+### download_mod
+```py
+download_mod(id=None, slug=None, version=None, modloader=None, origin=None)
+```
 Downloads a mod directly to the current directory.
 
-### `is_modloader_available(id=None, slug=None, version=None, modloader=None, origin=None)`
+### is_modloader_available
+```py
+is_modloader_available(id=None, slug=None, version=None, modloader=None, origin=None)
+```
 Checks if a mod is available for a specific modloader and version.
 
-### `search_modrinth(query, version=None, modloader=None, project_type=None, categories=None)`
+### search_modrinth
+```py
+search_modrinth(query, version=None, modloader=None, project_type=None, categories=None)
+```
 Searches for mods on Modrinth only.
 
-### `search_curseforge(query, version=None, modloader=None, project_type=None, categories=None)`
+### search_curseforge
+```py
+search_curseforge(query, version=None, modloader=None, project_type=None, categories=None)
+```
 Searches for mods on CurseForge only.
-
-## Requirements
-
-- Python 3.6+
-- requests >= 2.25.0
-
-## License
-
-MIT License
