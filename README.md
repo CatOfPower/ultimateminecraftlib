@@ -1,6 +1,6 @@
 # UltimateMinecraftLib
 
-A Python library for interacting with Minecraft mod platforms (Modrinth and CurseForge).
+A Python library for interacting with Modrinth and CurseForge in a unified way.
 
 ## Usage
 
@@ -20,6 +20,12 @@ results = search(
     project_type="mod",
     categories=["utility"]
 )
+
+# Platform specific searches
+from ultimateminecraftlib import search_modrinth, search_curseforge
+
+modrinth_results = search_modrinth("jei")
+curseforge_results = search_curseforge("jei")
 ```
 
 ### Getting Download URLs
@@ -58,6 +64,18 @@ download_mod(
 )
 ```
 
+### Working with Modpacks
+
+```python
+from ultimateminecraftlib import load_modrinth_pack, load_curseforge_pack
+
+# Load a Modrinth modpack
+load_modrinth_pack("modpack.mrpack")
+
+# Load a CurseForge modpack
+load_curseforge_pack("modpack.zip")
+```
+
 ### Checking Modloader Availability
 
 ```python
@@ -74,38 +92,38 @@ available = is_modloader_available(
 
 ## API Reference
 
-### search
-```py
+### Core Functions
+
+#### search
+```python
 search(query, version=None, modloader=None, project_type=None, categories=None)
 ```
 Searches for mods across both Modrinth and CurseForge platforms.
 
-### get_download
-```py
+#### get_download
+```python
 get_download(id=None, slug=None, version=None, modloader=None, origin=None)
 ```
 Gets the download URL for a specific mod version.
 
-### download_mod
-```py
+#### download_mod
+```python
 download_mod(id=None, slug=None, version=None, modloader=None, origin=None)
 ```
 Downloads a mod directly to the current directory.
 
-### is_modloader_available
-```py
-is_modloader_available(id=None, slug=None, version=None, modloader=None, origin=None)
-```
-Checks if a mod is available for a specific modloader and version.
+### Platform Specific Functions
 
-### search_modrinth
-```py
+#### search_modrinth / search_curseforge
+```python
 search_modrinth(query, version=None, modloader=None, project_type=None, categories=None)
-```
-Searches for mods on Modrinth only.
-
-### search_curseforge
-```py
 search_curseforge(query, version=None, modloader=None, project_type=None, categories=None)
 ```
-Searches for mods on CurseForge only.
+Search for mods on a specific platform.
+
+#### load_modrinth_pack / load_curseforge_pack
+```python
+load_modrinth_pack(path)
+load_curseforge_pack(path)
+```
+Load and parse modpack files from either platform.
