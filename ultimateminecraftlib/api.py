@@ -233,7 +233,12 @@ def get_download(id: str = None, slug: str = None, version: str = None, modloade
         raise ValueError("Invalid origin")
 
 def download(url: str, path: str):
-    response = get(url, stream=True)
+    headers = {}
+
+    if "forgecdn" in url:
+        headers = {"x-api-key": curseforge_key}
+
+    response = get(url, headers=headers, stream=True)
     response.raise_for_status()
     with open(path, "wb") as f:
         for chunk in response.iter_content(chunk_size=8192):
@@ -242,6 +247,13 @@ def download(url: str, path: str):
 def download_mod(id: int = None, slug: str = None, version: str = None, modloader: str = None, origin: str = None, path: str = None):
     url = get_download(id, slug, version, modloader, origin)
     download(url, url.split("/")[-1])
+
+def get_curseforge_project_files(id: int, file_id: int):
+    url = f"{base_url_curseforge}mods/{id}/files/{file_id}"
+    headers = {"x-api-key": curseforge_key}
+    response = get(url, headers=headers)
+    response.raise_for_status()
+    return response.json()
 
 def is_modloader_available_curseforge(id: int, slug: str, version: str, modloader: str):
     return get_download_curseforge(id, slug, version, modloader) is not None
