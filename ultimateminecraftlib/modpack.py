@@ -2,22 +2,10 @@ import json
 import os
 import zipfile
 
-def load_modrinth_pack(path: str) -> dict:
-    """
-    Load a modpack from a file and return it as a dictionary.
-    
-    Args:
-        path (str): The path to the modpack file.
-    
-    Returns:
-        dict: The modpack data.
-    """
-    
-    # DECOMPRESS THE FILE
+def load_modrinth_pack(path: str):
     with zipfile.ZipFile(path, 'r') as zip_ref:
         zip_ref.extractall(path[:-7])
     
-    # LOAD THE MODPACK.JSON FILE
     with open(path[:-7] + "/modrinth.index.json", 'r') as file:
         modrinth_data = json.load(file)
 
@@ -54,7 +42,7 @@ def load_modrinth_pack(path: str) -> dict:
     os.remove(path[:-7] + "/modrinth.index.json")
 
 def load_curseforge_pack(path):
-    from .api import search_curseforge, get_download_curseforge, download, get_curseforge_project_files
+    from .api import get_curseforge_project_files
 
     with zipfile.ZipFile(path, 'r') as zip_ref:
         zip_ref.extractall(path[:-4])
@@ -100,3 +88,7 @@ def load_curseforge_pack(path):
         json.dump(data, file, indent=4)
     os.remove(path[:-4] + "/manifest.json")
     os.remove(path[:-4] + "/modlist.html")
+
+def install_modpack(path: str):
+    with open(path+"/modpack.json", 'r') as file:
+        modpack_data = json.load(file)

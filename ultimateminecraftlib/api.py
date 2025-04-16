@@ -233,12 +233,7 @@ def get_download(id: str = None, slug: str = None, version: str = None, modloade
         raise ValueError("Invalid origin")
 
 def download(url: str, path: str):
-    headers = {}
-
-    if "forgecdn" in url:
-        headers = {"x-api-key": curseforge_key}
-
-    response = get(url, headers=headers, stream=True)
+    response = get(url, stream=True)
     response.raise_for_status()
     with open(path, "wb") as f:
         for chunk in response.iter_content(chunk_size=8192):
